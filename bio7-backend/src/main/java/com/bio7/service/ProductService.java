@@ -26,4 +26,27 @@ public class ProductService {
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
+
+    public Product updateProduct(Long id, Product newProduct) {
+        Product existing = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produit non trouvé"));
+
+        existing.setName(newProduct.getName());
+        existing.setDescription(newProduct.getDescription());
+        existing.setPrice(newProduct.getPrice());
+        existing.setImageUrl(newProduct.getImageUrl());
+        existing.setCategory(newProduct.getCategory());
+        existing.setBadge(newProduct.getBadge());
+        existing.setStock(newProduct.getStock());
+
+        return productRepository.save(existing);
+    }
+
+    public void deleteProduct(Long id) {
+        if(!productRepository.existsById(id)) {
+            throw new RuntimeException("Produit introuvable");
+        }
+        productRepository.deleteById(id);
+    }
+
 }
