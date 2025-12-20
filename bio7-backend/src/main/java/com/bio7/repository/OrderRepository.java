@@ -1,0 +1,8 @@
+package com.bio7.repository;
+
+import com.bio7.model.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderRepository extends JpaRepository<Order, Long> {
+}
+
