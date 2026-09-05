@@ -1,11 +1,15 @@
 package com.bio7.user.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name="users")
-@Data
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class User {
 
@@ -16,9 +20,9 @@ public class User {
     private Long id ;
 
     @Column(nullable = false,length = 50)
-    private String username;
+    private String userName;
 
-    @Column(nullable = false,unique = true,length = 50)
+    @Column(nullable = false,unique = true,length = 150)
     private String email;
 
     @Column(nullable = false)

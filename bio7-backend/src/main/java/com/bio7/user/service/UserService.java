@@ -42,7 +42,7 @@ public class UserService {
         UserResponseDTO dto = new UserResponseDTO();
 
         dto.setId(user.getId());
-        dto.setUsername(user.getUsername());
+        dto.setUsername(user.getUserName());
         dto.setEmail(user.getEmail());
         dto.setRole(user.getRole());
         dto.setEnabled(user.isEnabled());
