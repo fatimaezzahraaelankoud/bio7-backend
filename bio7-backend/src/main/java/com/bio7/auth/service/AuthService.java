@@ -1,6 +1,8 @@
 package com.bio7.auth.service;
 
 import com.bio7.user.dto.request.CreateUserRequestDTO;
+import com.bio7.user.dto.request.LoginRequestDTO;
+import com.bio7.user.dto.response.LoginResponseDTO;
 import com.bio7.user.dto.response.UserResponseDTO;
 import com.bio7.user.entity.Role;
 import com.bio7.user.entity.User;
@@ -16,6 +18,7 @@ public class AuthService {
     private final UserRepository userRepository ;
     private final PasswordEncoder passwordEncoder ;
     private final UserMapper userMapper ;
+    private final JwtService jwtService ;
 
 
     public UserResponseDTO Register(CreateUserRequestDTO request){
@@ -37,6 +40,25 @@ public class AuthService {
         return userMapper.toResponseDTO(savedUser);
 
 
+    }
+
+
+    public LoginResponseDTO Login(LoginRequestDTO request){
+
+        User user = userRepository.findByEmailIgnoreCase(request.getEmail()).
+                orElseThrow(()-> new RuntimeException("invalid credentials ") );
+
+        if(!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())){
+               throw new IllegalArgumentException("Invalid credentials");
+        }
+
+        if(!user.isEnabled()){
+            throw  new IllegalArgumentException("compte inactive");
+
+        }
+
+        String token = jwtService.generateToken(user);
+        return new LoginResponseDTO(token);
     }
 
 

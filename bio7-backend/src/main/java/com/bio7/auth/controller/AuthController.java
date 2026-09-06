@@ -2,12 +2,14 @@ package com.bio7.auth.controller;
 
 import com.bio7.auth.service.AuthService;
 import com.bio7.user.dto.request.CreateUserRequestDTO;
+import com.bio7.user.dto.request.LoginRequestDTO;
+import com.bio7.user.dto.response.LoginResponseDTO;
 import com.bio7.user.dto.response.UserResponseDTO;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,16 @@ public class AuthController {
            return ResponseEntity.status(HttpStatus.CREATED)
                    .body(userResponseDTO);
 
+       }
+
+       @PostMapping("/login")
+       public ResponseEntity<LoginResponseDTO> login(
+               @Valid @RequestBody LoginRequestDTO request
+               ){
+
+           LoginResponseDTO loginResponseDTO = authService.Login(request);
+
+           return ResponseEntity.ok(loginResponseDTO);
        }
 
 }
