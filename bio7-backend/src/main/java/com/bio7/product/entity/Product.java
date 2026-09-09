@@ -1,20 +1,46 @@
 package com.bio7.product.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "products")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+    private Long id;
 
-    private String name ;
-    private String description ;
-    private Double price ;
+    @Column(nullable = false, length = 50)
+    private String name;
+
+    @Column(length = 1000)
+    private String description;
+
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
+
+    @Column(nullable = false, length = 250)
     private String imageUrl;
+
+    @Column(nullable = false, length = 50)
     private String category;
-    private String badge; // "Best-seller", "Nouveau", "Premium"
-    private int stock ;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 30)
+    private Badge badge;
+
+    @Column(nullable = false)
+    private Integer stock;
+
+    @Column(nullable = false)
+    private boolean active = true;
 }
