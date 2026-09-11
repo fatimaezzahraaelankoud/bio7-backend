@@ -20,12 +20,16 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
-    @Size(max=50)
+    @Column(nullable = false,length = 50 )
     private String name ;
 
-    @Size(max=150)
+    @Column(nullable = false,length = 150 )
     private String description ;
 
-    @OneToMany(fetch =FetchType.LAZY)
+    @Column(nullable = false )
+    private boolean active ;
+
+    @OneToMany(mappedBy = "category")
+    @Builder.Default
     private List<Product> product = new ArrayList<>() ;
 }

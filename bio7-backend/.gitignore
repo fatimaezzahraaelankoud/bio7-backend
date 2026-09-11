@@ -33,4 +33,8 @@ build/
 .vscode/
 
 # Application secrets
-!**/src/main/resources/application.properties
+**/src/main/resources/application.properties
+
+Dockerfile
+.dockerignore
+src/main/resources/application.properties

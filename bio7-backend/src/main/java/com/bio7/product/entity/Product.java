@@ -1,5 +1,6 @@
 package com.bio7.product.entity;
 
+import com.bio7.category.entity.Category;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,9 +31,6 @@ public class Product {
     @Column(nullable = false, length = 250)
     private String imageUrl;
 
-    @Column(nullable = false, length = 50)
-    private String category;
-
 
     @Enumerated(EnumType.STRING)
     @Column(length = 30)
@@ -43,4 +41,9 @@ public class Product {
 
     @Column(nullable = false)
     private boolean active = true;
+
+    @ManyToOne(fetch = FetchType.LAZY ,optional = false)
+    @JoinColumn(name = "category_id", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_product_category"))
+    private Category category;
 }

@@ -1,5 +1,6 @@
 package com.bio7.product.mapper;
 
+import com.bio7.category.entity.Category;
 import com.bio7.product.dto.request.ProductRequest;
 import com.bio7.product.dto.response.ProductResponse;
 import com.bio7.product.entity.Badge;
@@ -9,13 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductMapper {
 
-    public Product toEntity(ProductRequest dto){
+    public Product toEntity(ProductRequest dto ,Category category){
         return Product.builder().
                 name(dto.getName())
                 .description(dto.getDescription())
                 .price(dto.getPrice())
                 .imageUrl(dto.getImageUrl())
-                .category(dto.getCategory())
+                .category(category)
                 .badge(parseBadge(dto.getBadge()))
                 .stock(dto.getStock())
                 .active(true)
@@ -30,7 +31,8 @@ public class ProductMapper {
                 .description(product.getDescription())
                 .price(product.getPrice())
                 .imageUrl(product.getImageUrl())
-                .category(product.getCategory())
+                .categoryID(product.getCategory().getId())
+                .categoryName(product.getCategory().getName())
                 .badge(product.getBadge())
                 .stock(product.getStock())
                 .active(product.isActive())

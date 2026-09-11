@@ -27,9 +27,8 @@ public class ProductRequest {
     @Size(max = 250, message = "L'URL de l'image ne doit pas dépasser 250 caractères")
     private String imageUrl;
 
-    @NotBlank(message = "La catégorie est obligatoire")
-    @Size(max = 50, message = "La catégorie ne doit pas dépasser 50 caractères")
-    private String category;
+    @NotNull(message = "La catégorie est obligatoire")
+    private Long categoryId;
 
     private String badge;
 
