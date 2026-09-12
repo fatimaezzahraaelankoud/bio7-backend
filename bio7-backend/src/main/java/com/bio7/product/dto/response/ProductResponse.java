@@ -16,7 +16,7 @@ public class ProductResponse {
     private BigDecimal price;
     private String imageUrl;
     private String categoryName;
-    private Long categoryID ;
+    private Long categoryId ;
     private Badge badge;
     private Integer stock;
     private boolean active;

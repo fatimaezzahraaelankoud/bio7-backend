@@ -3,7 +3,9 @@ package com.bio7.category.mapper;
 import com.bio7.category.dto.request.CategoryRequest;
 import com.bio7.category.dto.response.CategoryResponse;
 import com.bio7.category.entity.Category;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CategoryMapper {
 
     public CategoryResponse toResponse(Category category){

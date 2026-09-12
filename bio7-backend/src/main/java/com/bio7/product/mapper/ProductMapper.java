@@ -31,7 +31,7 @@ public class ProductMapper {
                 .description(product.getDescription())
                 .price(product.getPrice())
                 .imageUrl(product.getImageUrl())
-                .categoryID(product.getCategory().getId())
+                .categoryId(product.getCategory().getId())
                 .categoryName(product.getCategory().getName())
                 .badge(product.getBadge())
                 .stock(product.getStock())

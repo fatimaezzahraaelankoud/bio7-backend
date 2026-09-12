@@ -29,7 +29,7 @@ public class CategoryController {
                 .body(categoryService.create(request));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping
     public ResponseEntity<List<CategoryResponse>> findAll() {
 
@@ -38,7 +38,7 @@ public class CategoryController {
         );
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponse> findById(
             @PathVariable Long id) {

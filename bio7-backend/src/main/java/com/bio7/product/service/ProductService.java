@@ -9,6 +9,8 @@ import com.bio7.product.entity.Product;
 import com.bio7.product.mapper.ProductMapper;
 import com.bio7.product.repository.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,10 +44,16 @@ public class ProductService {
 
 
 
-    public List<ProductResponse> findAll(){
-        return productRepository.findByActiveTrue()
-                .stream()
-                .map(productMapper::toResponseDTO).toList();
+    public Page<ProductResponse> findAll(String search ,
+                                         Long categoryId,
+                                         Pageable pageable){
+
+        String normalizedSearch =
+                (search == null || search.isBlank())
+                        ? null
+                        : search.trim();
+        return productRepository.search(normalizedSearch,categoryId,pageable)
+                .map(productMapper::toResponseDTO);
     }
 
 
@@ -89,7 +97,7 @@ public class ProductService {
 
 
 
-    //delete or archive product(make te product availability false)
+    //delete : archive product(make the product availability false)
     public void delete(Long id){
 
         Product product=productRepository.findById(id)

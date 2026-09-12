@@ -5,6 +5,8 @@ import com.bio7.product.dto.response.ProductResponse;
 import com.bio7.product.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,16 +31,19 @@ public class ProductController {
                 .body(productService.create(request));
     }
 
-    @PreAuthorize("hasRole('CLIENT')")
+
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> findAll() {
+    public ResponseEntity<Page<ProductResponse>> findAll(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) Long categoryId,
+            Pageable pageable) {
 
         return ResponseEntity.ok(
-                productService.findAll()
+                productService.findAll(search, categoryId, pageable)
         );
     }
 
-    @PreAuthorize("hasRole('CLIENT')")
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> findById(
             @PathVariable Long id

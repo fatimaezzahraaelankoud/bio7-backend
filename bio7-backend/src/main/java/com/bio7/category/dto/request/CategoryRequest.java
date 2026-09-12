@@ -2,13 +2,13 @@ package com.bio7.category.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CategoryRequest {
 
     @NotBlank(message = "Le nom de la catégorie est obligatoire")
