@@ -28,9 +28,12 @@ jobs:
 
       - name: Run tests
         run: mvn test
+        working-directory: ./bio7-backend
 
       - name: Build
         run: mvn package
+        working-directory: ./bio7-backend
 
       - name: Build Docker image
         run: docker build -t bio7-backend .
+        working-directory: ./bio7-backend
