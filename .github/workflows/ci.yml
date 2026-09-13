@@ -21,8 +21,16 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.9
+
       - name: Run tests
-        run: ./mvnw test
+        run: mvn test
 
       - name: Build
-        run: ./mvnw package
+        run: mvn package
+
+      - name: Build Docker image
+        run: docker build -t bio7-backend .
