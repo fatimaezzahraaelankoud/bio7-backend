@@ -13,7 +13,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     Optional<Product> findByNameIgnoreCase(String name);
     boolean existsByNameIgnoreCase(String name);
     Page<Product> findByActiveTrue(Pageable pageable);
-    @Query("""
+
+    /*@Query("""
         SELECT p
         FROM Product p
         WHERE p.active = true
@@ -32,5 +33,5 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             @Param("search") String search,
             @Param("categoryId") Long categoryId,
             Pageable pageable
-    );
+    );*/
 }

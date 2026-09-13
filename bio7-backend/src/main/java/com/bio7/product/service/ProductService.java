@@ -44,15 +44,10 @@ public class ProductService {
 
 
 
-    public Page<ProductResponse> findAll(String search ,
-                                         Long categoryId,
-                                         Pageable pageable){
+    public Page<ProductResponse> findAll(Pageable pageable){
 
-        String normalizedSearch =
-                (search == null || search.isBlank())
-                        ? null
-                        : search.trim();
-        return productRepository.search(normalizedSearch,categoryId,pageable)
+
+        return productRepository.findAll(pageable)
                 .map(productMapper::toResponseDTO);
     }
 
