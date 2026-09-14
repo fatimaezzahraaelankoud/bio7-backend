@@ -44,11 +44,46 @@ public class ProductService {
 
 
 
-    public Page<ProductResponse> findAll(Pageable pageable){
+    public Page<ProductResponse> findAll(
+            String search,
+            Long categoryId,
+            Pageable pageable
+    ) {
 
+        Page<Product> products;
 
-        return productRepository.findAll(pageable)
-                .map(productMapper::toResponseDTO);
+        if (search != null && !search.isBlank() && categoryId != null) {
+
+            products = productRepository
+                    .findByActiveTrueAndCategoryIdAndNameContainingIgnoreCase(
+                            categoryId,
+                            search,
+                            pageable
+                    );
+
+        } else if (search != null && !search.isBlank()) {
+
+            products = productRepository
+                    .findByActiveTrueAndNameContainingIgnoreCase(
+                            search,
+                            pageable
+                    );
+
+        } else if (categoryId != null) {
+
+            products = productRepository
+                    .findByActiveTrueAndCategoryId(
+                            categoryId,
+                            pageable
+                    );
+
+        } else {
+
+            products = productRepository
+                    .findByActiveTrue(pageable);
+        }
+
+        return products.map(productMapper::toResponseDTO);
     }
 
 

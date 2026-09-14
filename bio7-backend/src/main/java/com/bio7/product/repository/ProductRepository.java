@@ -13,7 +13,21 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     Optional<Product> findByNameIgnoreCase(String name);
     boolean existsByNameIgnoreCase(String name);
     Page<Product> findByActiveTrue(Pageable pageable);
+    Page<Product> findByActiveTrueAndNameContainingIgnoreCase(
+            String name,
+            Pageable pageable
+    );
 
+    Page<Product> findByActiveTrueAndCategoryId(
+            Long categoryId,
+            Pageable pageable
+    );
+
+    Page<Product> findByActiveTrueAndCategoryIdAndNameContainingIgnoreCase(
+            Long categoryId,
+            String name,
+            Pageable pageable
+    );
     /*@Query("""
         SELECT p
         FROM Product p

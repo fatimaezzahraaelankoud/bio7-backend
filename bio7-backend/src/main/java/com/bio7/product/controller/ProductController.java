@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +36,23 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Page<ProductResponse>> findAll(
-            @PageableDefault(size = 10, sort = "name")
-            Pageable pageable) {
+
+            @RequestParam(required = false)
+            String search,
+
+            @RequestParam(required = false)
+            Long categoryId,
+
+            @PageableDefault(
+                    size = 10,
+                    sort = "name",
+                    direction = Sort.Direction.ASC
+            )
+            Pageable pageable
+    ) {
 
         return ResponseEntity.ok(
-                productService.findAll( pageable)
+                productService.findAll(search, categoryId, pageable)
         );
     }
 
