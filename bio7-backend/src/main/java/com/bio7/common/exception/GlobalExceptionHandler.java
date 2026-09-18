@@ -69,4 +69,23 @@ public class GlobalExceptionHandler {
 
         return problemDetail;
     }
+
+
+    @ExceptionHandler(
+            org.springframework.orm.ObjectOptimisticLockingFailureException.class
+    )
+    public ProblemDetail handleOptimisticLockingFailure(
+            org.springframework.orm.ObjectOptimisticLockingFailureException exception
+    ) {
+
+        ProblemDetail problemDetail =
+                ProblemDetail.forStatusAndDetail(
+                        HttpStatus.CONFLICT,
+                        "Le produit a été modifié par un autre utilisateur. Veuillez réessayer."
+                );
+
+        problemDetail.setTitle("Conflit de modification");
+
+        return problemDetail;
+    }
 }

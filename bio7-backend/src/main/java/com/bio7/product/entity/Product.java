@@ -42,6 +42,10 @@ public class Product {
     @Column(nullable = false)
     private boolean active = true;
 
+    @Version
+    @Column(nullable = false)
+    private Long version;
+
     @ManyToOne(fetch = FetchType.LAZY ,optional = false)
     @JoinColumn(name = "category_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_product_category"))
